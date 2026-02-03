@@ -28,6 +28,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "build:lib": "vite build && tsc --project tsconfig.lib.json",
+    "postinstall": "npm run build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
