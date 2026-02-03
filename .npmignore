@@ -1,0 +1,18 @@
+# Source files
+src/
+public/
+
+# Config files
+vite.config.ts
+tsconfig*.json
+eslint.config.js
+
+# Development files
+.gitignore
+.cursor/
+*.log
+node_modules/
+bun.lock
+
+# Keep only dist folder
+!dist/

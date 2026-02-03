@@ -1,75 +1,164 @@
-# React + TypeScript + Vite
+# Component App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React component library built with TypeScript and Vite.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎨 Modern React components
+- 📦 Tree-shakeable ES modules
+- 🔷 Full TypeScript support
+- ⚡ Built with Vite for optimal performance
+- 🎯 Zero dependencies (peer dependencies only)
 
-## React Compiler
+## Installation
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install component-app
+# or
+yarn add component-app
+# or
+bun add component-app
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Usage
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Import components from the library:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```tsx
+import { Button } from 'component-app';
+
+function App() {
+  return (
+    <div>
+      <Button />
+    </div>
+  );
+}
 ```
+
+For more detailed usage examples, see [USAGE_EXAMPLE.md](./USAGE_EXAMPLE.md).
+
+## Available Components
+
+- **Button**: A basic button component
+
+## Development
+
+### Install dependencies
+
+```bash
+bun install
+```
+
+### Build the library
+
+```bash
+bun run build:lib
+```
+
+This will generate:
+- ES module: `dist/component-app.es.js`
+- UMD module: `dist/component-app.umd.js`
+- TypeScript declarations: `dist/index.d.ts`
+
+### Development mode
+
+Run the development server to test components:
+
+```bash
+bun run dev
+```
+
+### Linting
+
+```bash
+bun run lint
+```
+
+## Project Structure
+
+```
+component-app/
+├── src/
+│   ├── components/        # Component library
+│   │   └── Button.tsx
+│   ├── index.ts          # Main entry point (exports all components)
+│   ├── App.tsx           # Development/testing app
+│   └── main.tsx          # Development entry
+├── dist/                 # Build output (generated)
+├── package.json
+├── vite.config.ts        # Vite configuration for library mode
+├── tsconfig.lib.json     # TypeScript config for library build
+└── README.md
+```
+
+## Adding New Components
+
+1. Create your component in `src/components/`:
+
+```tsx
+// src/components/MyComponent.tsx
+export default function MyComponent() {
+  return <div>My Component</div>;
+}
+```
+
+2. Export it from `src/index.ts`:
+
+```tsx
+export { default as MyComponent } from './components/MyComponent';
+```
+
+3. Build the library:
+
+```bash
+bun run build:lib
+```
+
+## Publishing
+
+### To npm Registry
+
+1. Update the version in `package.json`:
+
+```bash
+npm version patch  # or minor, or major
+```
+
+2. Build the library:
+
+```bash
+bun run build:lib
+```
+
+3. Publish to npm:
+
+```bash
+npm publish
+```
+
+### Local Testing
+
+Before publishing, you can test your library locally:
+
+```bash
+# In component-app directory
+bun link
+
+# In your test project
+bun link component-app
+```
+
+## Package Configuration
+
+The library is configured to work with modern JavaScript tooling:
+
+- **Main entry**: UMD build for CommonJS environments
+- **Module entry**: ES module for modern bundlers
+- **Types entry**: TypeScript declarations
+- **Exports field**: Proper module resolution for Node.js and bundlers
+- **Peer dependencies**: React 18+ or 19+
+
+## License
+
+MIT
